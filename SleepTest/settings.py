@@ -1,3 +1,4 @@
+# coding: utf-8
 """
 Django settings for SleepTest project.
 
@@ -15,7 +16,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -25,8 +25,10 @@ SECRET_KEY = '=&v1@)bu)u9#bm5-3!1utqjl_sfyg1s(1xx42z!10a7#y91bm%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+APP_ID = 'wx55b66c2f4b35025f'
+APP_SECRET = '0b6e5ea63da200b152206cc0801cbc52'
 
 # Application definition
 
@@ -72,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SleepTest.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -90,6 +91,14 @@ DATABASES = {
     }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'utils.renderers.CustomJsonRender',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'EXCEPTION_HANDLER': 'utils.handlers.exception_handler'
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -109,11 +118,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+DEFAULT_CHARSET = 'utf-8'
+
+LANGUAGE_CODE = 'zh-cn'
 
 TIME_ZONE = 'UTC'
 
@@ -122,7 +132,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
