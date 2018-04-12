@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 from sleep.functions import code_authorize, get_user_info
-from sleep.models import UserInfo, Question
+from sleep.models import UserInfo, Questions
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
@@ -17,7 +17,10 @@ class UserInfoSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('请传入CODE值')
         data = self.check_account(code)
         validated_data.update(data)
-        instance = super().create(validated_data)
+        if UserInfo.objects.filter(openid=data['openid']).exists():
+            instance = UserInfo.objects.filter(openid=data['openid']).first()
+        else:
+            instance = super().create(validated_data)
         return instance
 
     def check_account(self, code):
@@ -32,11 +35,11 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Question
+        model = Questions
         fields = ['id', 'user', 'question1', 'question2', 'question3', 'question4', 'question5', 'question6']
 
     def create(self, validated_data):
-        if Question.objects.filter(user=validated_data['user']).exists():
-            raise serializers.ValidationError('该用户已经提交答案')
+        if Questions.objects.filter(user=validated_data['user']).exists():
+            raise serializers.ValidationError('该用户已经提交过答案')
         instance = super().create(validated_data)
         return instance

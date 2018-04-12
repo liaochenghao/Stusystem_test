@@ -1,3 +1,3 @@
-from django.test import TestCase
+s = "北京-五周项目"
 
-# Create your tests here.
+print(s.split('-')[1])

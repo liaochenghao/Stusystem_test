@@ -2,7 +2,7 @@
 
 from rest_framework import mixins, viewsets
 
-from sleep.models import UserInfo, Question
+from sleep.models import UserInfo, Questions
 from sleep.serializers import UserInfoSerializer, QuestionSerializer
 
 
@@ -19,5 +19,13 @@ class QuestionViewSet(mixins.ListModelMixin,
                       mixins.CreateModelMixin,
                       mixins.RetrieveModelMixin,
                       viewsets.GenericViewSet):
-    queryset = Question.objects.all()
+    queryset = Questions.objects.all()
     serializer_class = QuestionSerializer
+
+    def get_queryset(self):
+        openid = self.request.query_params.get('openid')
+        if openid:
+            queryset = self.queryset.filter(user__openid=openid)
+        else:
+            queryset = self.queryset
+        return queryset

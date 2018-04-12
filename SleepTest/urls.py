@@ -18,5 +18,5 @@ Including another URLconf
 from django.conf.urls import url, include
 
 urlpatterns = [
-    url(r'^', include('sleep.urls')),
+    url(r'^api/v1/', include('sleep.urls')),
 ]

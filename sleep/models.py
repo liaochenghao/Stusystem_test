@@ -19,7 +19,7 @@ class UserInfo(models.Model):
         db_table = 'user_info'
 
 
-class Question(models.Model):
+class Questions(models.Model):
     ANSWER_CHOICES = (
         (1, 'A'), (2, 'B'), (3, 'C'),
     )
