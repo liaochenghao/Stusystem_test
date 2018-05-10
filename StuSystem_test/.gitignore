@@ -1,0 +1,11 @@
+.idea/
+*.pyc
+templates/
+static/
+logs/
+media/
+StuSystem/StuSystem/settings/prod.py
+StuSystem/StuSystem/settings/prod_bak.py
+StuSystem/StuSystem/settings/.DS_Store
+StuSystem/test
+*.DS_Store
